@@ -20,6 +20,44 @@ public class Main {
         findMaxContiguousRangeWithMaxProduct(arr);
         
         findThreeNumbersSumZero(arr);
+        
+        int[] arr2 = {55, 22, 44, 1, 45, 5, 76, 87, 33, 55, 99};
+        findBestBuySellDays(arr2);
+        
+        findClosesPerfectSquare(170);
+    }
+
+    private static void findClosesPerfectSquare(int i) {
+        int prev = (int) Math.floor(Math.sqrt(i));
+        int next = prev + 1;
+        int sqrPrev = prev*prev;
+        int sqrNext = next*next;
+        if (i - sqrPrev > sqrNext - i) {
+            System.out.println("square = "+sqrNext);
+        } else {
+            System.out.println("square = "+sqrPrev);
+        }
+    }
+
+    private static void findBestBuySellDays(int[] arr) {
+        int min = arr[0];
+        int idxMin = 0;
+        for(int i = 1; i < arr.length; i++) {
+            if (arr[i] < min) {
+                min = arr[i];
+                idxMin = i;
+            }
+        }
+        int max = arr[0];
+        int idxMax = 0;
+        for(int i = 1; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+                idxMax = i;
+            }
+        }
+        System.out.println("Best buying date is "+idxMin);
+        System.out.println("Best selling date is "+idxMax);
     }
 
     private static void findThreeNumbersSumZero(int[] arr) {
