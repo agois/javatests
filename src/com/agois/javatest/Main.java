@@ -21,7 +21,7 @@ public class Main {
         
         findThreeNumbersSumZero(arr);
         
-        int[] arr2 = {55, 22, 44, 1, 45, 5, 76, 87, 33, 55, 99};
+        int[] arr2 = {99, 22, 44, 1, 45, 5, 76, 87, 33, 55, 99};
         findBestBuySellDays(arr2);
         
         findClosesPerfectSquare(170);
@@ -39,25 +39,31 @@ public class Main {
         }
     }
 
-    private static void findBestBuySellDays(int[] arr) {
-        int min = arr[0];
-        int idxMin = 0;
-        for(int i = 1; i < arr.length; i++) {
-            if (arr[i] < min) {
-                min = arr[i];
-                idxMin = i;
-            }
-        }
-        int max = arr[0];
-        int idxMax = 0;
-        for(int i = 1; i < arr.length; i++) {
-            if (arr[i] > max) {
-                max = arr[i];
-                idxMax = i;
-            }
-        }
+    // Traverse the array and keep track of the min so far and the difference
+    // for each element. When find a new min, update idxMin, when find a new
+    // best profit, update idxMax
+    private static int findBestBuySellDays(int[] a) {
+           if(a.length==0)return 0;
+           int min=a[0];
+           int best=0;
+           int idxMin = 0;
+           int idxMax = 0;
+           for(int i=1;i<a.length;i++)
+           {
+               int tmp = a[i]-min;
+               if (tmp > best) {
+                   idxMax = i;
+               }
+               best = Math.max(best,tmp);
+               if(a[i]<min) {
+                   min=a[i];
+                   idxMin = i;
+               }
+           }
         System.out.println("Best buying date is "+idxMin);
         System.out.println("Best selling date is "+idxMax);
+        System.out.println("Best profit is "+best);
+        return best;
     }
 
     private static void findThreeNumbersSumZero(int[] arr) {
