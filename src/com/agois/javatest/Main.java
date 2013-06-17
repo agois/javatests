@@ -11,6 +11,23 @@ import java.util.Arrays;
  */
 public class Main {
 
+    public static  class Singleton{
+        private static volatile Singleton _instance;
+
+        public static Singleton getInstance(){
+
+           if(_instance == null){
+                    synchronized(Singleton.class){
+                      if(_instance == null)
+                      _instance = new Singleton();
+                    }
+
+           }
+           return _instance;
+
+        }
+    }
+    
     /**
      * @param args
      */
@@ -25,6 +42,35 @@ public class Main {
         findBestBuySellDays(arr2);
         
         findClosesPerfectSquare(170);
+        
+        findTripletInOrderofPositionAndValue(arr2);
+    }
+
+    private static void findTripletInOrderofPositionAndValue(int[] arr) {
+        if (arr.length < 3) return;
+        int[] min = new int[arr.length];
+        min[0] = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] < min[i-1]) {
+                min[i] = arr[i];
+            } else {
+                min[i] = min[i-1];
+            }
+        }
+        int[] max = new int[arr.length];
+        max[arr.length-1] = arr[arr.length-1];
+        for (int i = arr.length-2; i >= 0; i--) {
+            if (arr[i] > max[i+1]) {
+                max[i] = arr[i];
+            } else {
+                max[i] = max[i+1];
+            }
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if ((min[i] < arr[i]) && (arr[i] < max[i])) {
+                System.out.println("Found a="+min[i]+" b="+arr[i]+" c="+max[i]);
+            }
+        }
     }
 
     private static void findClosesPerfectSquare(int i) {
