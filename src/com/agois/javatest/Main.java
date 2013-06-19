@@ -52,6 +52,7 @@ public class Main {
         if (arr.length < 3) return;
         int[] min = new int[arr.length];
         min[0] = arr[0];
+        // Build array of min till pos from left to right
         for (int i = 1; i < arr.length; i++) {
             if (arr[i] < min[i-1]) {
                 min[i] = arr[i];
@@ -61,6 +62,7 @@ public class Main {
         }
         int[] max = new int[arr.length];
         max[arr.length-1] = arr[arr.length-1];
+        // Build array of max till pos from right to left
         for (int i = arr.length-2; i >= 0; i--) {
             if (arr[i] > max[i+1]) {
                 max[i] = arr[i];
@@ -68,6 +70,8 @@ public class Main {
                 max[i] = max[i+1];
             }
         }
+        // Scan array and find element that is higher than min so far
+        // and is lower than max from here
         for (int i = 0; i < arr.length; i++) {
             if ((min[i] < arr[i]) && (arr[i] < max[i])) {
                 System.out.println("Found a="+min[i]+" b="+arr[i]+" c="+max[i]);
@@ -116,11 +120,24 @@ public class Main {
 
     private static void findThreeNumbersSumZero(int[] arr) {
         Arrays.sort(arr);
-        int j = 1;
-        int k = arr.length - 1;
-        outer:
+//        outer:
         for (int i = 0; i < arr.length - 2; i++) {
-            loop2:
+            int j = i+1;
+            int k = arr.length - 1;
+            while (k > j) {
+                int sum = arr[i] + arr[j] + arr[k];
+                if (sum == 0) {
+                    System.out.println("found indexes "+i+" "+j+" "+k);
+                    System.out.println("found values "+arr[i]+" "+arr[j]+" "+arr[k]);
+                    return;
+                } else if (sum < 0) {
+                    j++;
+                } else {
+                    k--;
+                }
+            }
+
+/*            loop2:
             for (j = i+1; j < k; j++) {
                 for (k =arr.length-1; k > j; --k) {
                     int sum = arr[i] + arr[j] + arr[k];
@@ -133,7 +150,7 @@ public class Main {
                     }
                 }
             }
-        }
+*/        }
     }
 
     private static void findMaxContiguousRangeWithMaxProduct(int[] arr) {
