@@ -46,6 +46,7 @@ public class Main {
         findClosesPerfectSquare(170);
         
         findTripletInOrderofPositionAndValue(arr2);
+        findTripletInOrderofPositionAndValueOnePass(arr2);
     }
 
     private static void findTripletInOrderofPositionAndValue(int[] arr) {
@@ -75,6 +76,52 @@ public class Main {
         for (int i = 0; i < arr.length; i++) {
             if ((min[i] < arr[i]) && (arr[i] < max[i])) {
                 System.out.println("Found a="+min[i]+" b="+arr[i]+" c="+max[i]);
+            }
+        }
+    }
+
+    private static void findTripletInOrderofPositionAndValueOnePass(int[] arr) {
+        if (arr.length < 3) return;
+/*        int[] min = new int[arr.length];
+        min[0] = arr[0];
+        // Build array of min till pos from left to right
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] < min[i-1]) {
+                min[i] = arr[i];
+            } else {
+                min[i] = min[i-1];
+            }
+        }
+        int[] max = new int[arr.length];
+        max[arr.length-1] = arr[arr.length-1];
+        // Build array of max till pos from right to left
+        for (int i = arr.length-2; i >= 0; i--) {
+            if (arr[i] > max[i+1]) {
+                max[i] = arr[i];
+            } else {
+                max[i] = max[i+1];
+            }
+        }*/
+        // Scan array and find element that is higher than min so far
+        // and is lower than max from here
+        int minSoFar = arr[0];
+        int maxFromHere = arr[arr.length-1];
+        for (int i = 1, j = arr.length-2; i < arr.length-1 && j >= 0; i++,j--) {
+            if (arr[i] < minSoFar) {
+                minSoFar = arr[i];
+            }
+            if (arr[j] > maxFromHere) {
+                maxFromHere = arr[j];
+            }
+            if (j - i > 1) {
+                if (arr[i] > minSoFar && arr[i] < maxFromHere) {
+                    System.out.println("New Found a="+minSoFar+" b="+arr[i]+" c="+maxFromHere);
+//                    return;
+                }
+                if (arr[j] > minSoFar && arr[j] < maxFromHere) {
+                    System.out.println("New Found a="+minSoFar+" b="+arr[j]+" c="+maxFromHere);
+//                    return;
+                }
             }
         }
     }
