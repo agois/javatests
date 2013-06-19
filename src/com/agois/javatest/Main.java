@@ -14,6 +14,8 @@ public class Main {
     public static  class Singleton{
         private static volatile Singleton _instance;
 
+        private Singleton() {}
+        
         public static Singleton getInstance(){
 
            if(_instance == null){
