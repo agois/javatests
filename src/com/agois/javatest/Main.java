@@ -53,6 +53,16 @@ public class Main {
         
         String s = "ABC";
         permutation(s);
+        
+        String s1= "alexandre";
+        String s2 = new String(rotateArray(s1.toCharArray(), 4));
+        System.out.println();
+        System.out.println("Is string "+s1+" rotation of "+s2+" ?");
+        System.out.println(isRotation(s1, s2));
+        
+        String palin = "HANTNAH";
+        System.out.println("Is word "+palin+" a palindrome?");
+        System.out.println(isPalindrom(palin.toCharArray()));
     }
 
     private static void findTripletInOrderofPositionAndValue(int[] arr) {
@@ -114,6 +124,23 @@ public class Main {
         }
     }
     
+    private static char[] rotateArray(char[] array, int shift) {
+        char[] array2 = new char[shift];
+        for (int i = 0; i < shift; i++)
+        {
+            array2[i] = array[i];
+        }
+        System.arraycopy(array, shift, array, 0, array.length - shift);
+        for (int i = array.length - shift; i < array.length; i++)
+        {
+            array[i] = array2[shift + i - array.length];
+        }  
+        for (int i: array) {
+            System.out.print(i+", ");
+        }
+        return array;
+    }
+
     public  static void permutation(String str) { 
         permutation("", str); 
     }
@@ -125,6 +152,23 @@ public class Main {
             for (int i = 0; i < n; i++)
                 permutation(prefix + str.charAt(i), str.substring(0, i) + str.substring(i+1, n));
         }
+    }
+    
+    private static boolean isRotation(String s1,String s2) {
+        return (s1.length() == s2.length()) && ((s1+s1).contains(s2));
+    }
+    
+    public static boolean isPalindrom(char[] word){
+        int i1 = 0;
+        int i2 = word.length - 1;
+        while (i2 > i1) {
+            if (word[i1] != word[i2]) {
+                return false;
+            }
+            ++i1;
+            --i2;
+        }
+        return true;
     }
     
     private static void findTripletInOrderofPositionAndValueOnePass(int[] arr) {
