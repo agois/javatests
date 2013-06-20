@@ -50,6 +50,9 @@ public class Main {
         
         int[] arr3 = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; 
         rotateArray(arr3, 3);
+        
+        String s = "ABC";
+        permutation(s);
     }
 
     private static void findTripletInOrderofPositionAndValue(int[] arr) {
@@ -108,6 +111,19 @@ public class Main {
         }  
         for (int i: array) {
             System.out.print(i+", ");
+        }
+    }
+    
+    public  static void permutation(String str) { 
+        permutation("", str); 
+    }
+
+    private static void permutation(String prefix, String str) {
+        int n = str.length();
+        if (n == 0) System.out.println(prefix);
+        else {
+            for (int i = 0; i < n; i++)
+                permutation(prefix + str.charAt(i), str.substring(0, i) + str.substring(i+1, n));
         }
     }
     
