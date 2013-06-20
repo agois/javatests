@@ -47,6 +47,9 @@ public class Main {
         
         findTripletInOrderofPositionAndValue(arr2);
         findTripletInOrderofPositionAndValueOnePass(arr2);
+        
+        int[] arr3 = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; 
+        rotateArray(arr3, 3);
     }
 
     private static void findTripletInOrderofPositionAndValue(int[] arr) {
@@ -80,7 +83,7 @@ public class Main {
         }
     }
 
-    static int[][] rotateCW(int[][] mat) {
+    private static int[][] rotateCW(int[][] mat) {
         final int M = mat.length;
         final int N = mat[0].length;
         int[][] ret = new int[N][M];
@@ -90,6 +93,22 @@ public class Main {
             }
         }
         return ret;
+    }
+    
+    private static void rotateArray(int[] array, int shift) {
+        int[] array2 = new int[shift];
+        for (int i = 0; i < shift; i++)
+        {
+            array2[i] = array[i];
+        }
+        System.arraycopy(array, shift, array, 0, array.length - shift);
+        for (int i = array.length - shift; i < array.length; i++)
+        {
+            array[i] = array2[shift + i - array.length];
+        }  
+        for (int i: array) {
+            System.out.print(i+", ");
+        }
     }
     
     private static void findTripletInOrderofPositionAndValueOnePass(int[] arr) {
